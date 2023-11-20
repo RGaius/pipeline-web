@@ -48,8 +48,17 @@ export default [
   {
     path: '/resource',
     name: 'resource',
-    icon: 'icon-home',
-    component: './Resource',
+    icon: 'Database',
+    routes: [
+      {
+        path: '/resource',
+        component: './Resource',
+      },
+      {
+        path: '/resource/create',
+        component: './Resource/Form',
+      }
+    ],
   },
   {
     name: 'list.table-list',
