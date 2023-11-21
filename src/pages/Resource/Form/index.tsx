@@ -1,10 +1,12 @@
-import {FooterToolbar, PageContainer, ProForm, ProFormText,} from '@ant-design/pro-components';
+import {useRef} from "react";
+import {FooterToolbar, PageContainer, ProForm, ProFormText,ProFormTextArea} from '@ant-design/pro-components';
 import {Card, Form} from 'antd';
 import {DynamicForm} from "@/components";
 
 const formItemLayout = {
   labelCol: {span: 4},
-  wrapperCol: {span: 9},
+  wrapperCol: {span: 14},
+  fieldCol: 14,
 }
 const defaultVal = {
   content: {
@@ -74,35 +76,40 @@ const schema = {
     }
   }
 }
-const onSubmitBefore = (values: any) => {
-
-}
 export default () => {
+  // 动态表单引用
+  const formRef = useRef<any>();
   return (
-      <PageContainer title="输入表单">
-        <Card>
-          <ProForm
-              {...formItemLayout}
-              layout={'horizontal'}
-              initialValues={defaultVal}
-              submitter={{
-                render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
-              }}
-              onFinish={async (values) => console.log(values)}
+    <PageContainer title="输入表单">
+      <Card>
+        <ProForm
+          {...formItemLayout}
+          layout={'horizontal'}
+          initialValues={defaultVal}
+          submitter={{
+            render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
+          }}
+          onFinish={async (values) => console.log(values)}
+        >
+          <ProFormText
+            name="name"
+            label="名称"
+            placeholder="请输入资源名称"
+            rules={[{ required: true }]}
+          />
+          <ProFormTextArea
+            name="desc"
+            label="描述"
+          />
+          <Form.Item
+            name="content"
+            noStyle
+            rules={[{validator: () => formRef.current.validator()}]}
           >
-            <ProFormText
-                name="name"
-                label="名称"
-                placeholder="请输入资源名称"
-            />
-            <Form.Item
-                name="content"
-                noStyle
-            >
-              <DynamicForm schema={schema} formProps={{...formItemLayout}} beforeFinish={onSubmitBefore}/>
-            </Form.Item>
-          </ProForm>
-        </Card>
-      </PageContainer>
+            <DynamicForm instanceRef={formRef} schema={schema} formProps={{...formItemLayout}}/>
+          </Form.Item>
+        </ProForm>
+      </Card>
+    </PageContainer>
   );
 };
