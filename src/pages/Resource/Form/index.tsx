@@ -62,7 +62,7 @@ const schema = {
       widget: 'input',
       required: true,
       defaultValue: "com.mysql.cj.jdbc.Driver",
-      hidden: true,
+      visible: false,
       rules: [{"message": "请输入连接驱动", "required": true}]
     },
     urlFormat: {
@@ -70,9 +70,15 @@ const schema = {
       type: 'string',
       widget: 'input',
       required: true,
-      defaultValue: "jdbc:mysql://${host}:${port}/${database}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true",
-      hidden: true,
+      visible: false,
+      defaultValue: "jdbc:mysql://${host}:${port}/${database}",
       rules: [{"message": "数据库连接格式", "required": true}]
+    },
+    paramList: {
+      title: '连接参数',
+      type: 'object',
+      widget: 'ParamsList',
+      tooltip: '该参数用于连接建立',
     }
   }
 }

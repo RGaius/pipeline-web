@@ -9,5 +9,6 @@ import Footer from './Footer';
 import {Question, SelectLang} from './RightContent';
 import {AvatarDropdown, AvatarName} from './RightContent/AvatarDropdown';
 import DynamicForm from './DynamicForm';
+import ParamList from "./ParamList";
 
-export {Footer, Question, SelectLang, AvatarDropdown, AvatarName, DynamicForm};
+export {Footer, Question, SelectLang, AvatarDropdown, AvatarName, DynamicForm, ParamList};

@@ -1,5 +1,6 @@
 import React, {useImperativeHandle} from 'react';
 import FormRender, {useForm} from 'form-render';
+import ParamsList from "@/components/ParamList";
 
 interface DynamicFormProps {
   value?: any;
@@ -26,19 +27,20 @@ const DynamicForm: React.FC<DynamicFormProps> = ({value = {}, onChange, instance
     };
   });
   return (
-    <FormRender
-      form={form}
-      schema={schema}
-      footer={false}
-      displayType={'row'}
-      removeHiddenData={false}
-      preserve={false}
-      onMount={() => {
-        form.setValues(value)
-      }}
-      watch={watch}
-      {...formProps}
-    />
+      <FormRender
+          form={form}
+          schema={schema}
+          footer={false}
+          displayType={'row'}
+          removeHiddenData={false}
+          widgets={{ParamsList}}
+          preserve={false}
+          onMount={() => {
+            form.setValues(value)
+          }}
+          watch={watch}
+          {...formProps}
+      />
   );
 };
 export default DynamicForm;
